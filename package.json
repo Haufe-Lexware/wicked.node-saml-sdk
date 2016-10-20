@@ -1,0 +1,35 @@
+{
+  "name": "wicked-saml",
+  "version": "0.10.0",
+  "description": "node.js SAML SDK for wicked.haufe.io",
+  "keywords": [
+    "api",
+    "wicked",
+    "sdk",
+    "management",
+    "saml"
+  ],
+  "main": "wicked-saml.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haufe-Lexware/wicked.node-saml-sdk.git"
+  },
+  "author": "Martin Danielsson <martin.danielsson@haufe-lexware.com> (https://github.com/Haufe-Lexware)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Haufe-Lexware/wicked.node-saml-sdk/issues"
+  },
+  "homepage": "https://github.com/Haufe-Lexware/wicked.node-saml-sdk#readme",
+  "dependencies": {
+    "debug": "2.2.0", 
+    "request": "2.74.0",
+    "saml2-js": "1.10.0"
+  },
+  "jshintConfig": {
+    "node": true, 
+    "esversion": 6
+  } 
+}
