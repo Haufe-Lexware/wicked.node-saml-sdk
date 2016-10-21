@@ -104,6 +104,10 @@ The following functions are exported by `wicked-saml`.
 
 ### `wickedSaml.initialize(wicked, serverId, callback)`
 
+Initialize the SAML library; calls the wicked API to retrieve information on the Authorization Server registration of the wicked configuration (see above). The `serverId` has to match the `auth-server` definition ID.
+
+Pass your `wicked-sdk` instance to the library here; `wicked-saml` will use its `apiGet` function.
+
 **Callback signature**: `function(err)` -- Does not return anything but an error, or `null` if successful.
 
 ### `wickedSaml.metadata()`
@@ -180,12 +184,13 @@ app.post('/auth-server/assert', function (req, res, next) {
         })
     });
 });
+```
 
 **Callback signature**: `function(err, userInfo, samlResponse)`
 
 The `userInfo` looks as follows:
 
-```
+```javascript
 userInfo = {
     email: "extracted@email.com",
     custom_id: "some-id-we-found"
