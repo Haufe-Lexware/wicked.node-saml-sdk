@@ -162,10 +162,10 @@ app.post('/auth-server/assert', function (req, res, next) {
         if (err)
             return next(err); // More elaborate error handling if needed
 
-        // userInfo will contain "email" and "custom_id" property (most of the time)
+        // userInfo will contain "authenticated_userid" property (most of the time)
         // If you need other things, use getAttributeValue() to retrieve from
         // the samlResponse:
-        userInfo.custom_id = wickedSaml.getAttributeValue(samlResponse, 'our_company_id');
+        userInfo.authenticated_userid = wickedSaml.getAttributeValue(samlResponse, 'our_company_id');
 
         // Fill in the other values for use with the Kong Adapter, stored
         // in session (see login())
@@ -174,7 +174,8 @@ app.post('/auth-server/assert', function (req, res, next) {
 
         // In case you need to do some authorization step (this is only authentication),
         // this is the place to do that, e.g. check for licenses for the authenticated
-        // user.
+        // user, which could be passed on as OAuth2 scopes:
+        userInfo.scope = ['some_scope', 'other_scope'];
 
         wicked.getRedirectUriWithAccessToken(userInfo, function (err, redirect) {
             if (err)

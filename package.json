@@ -1,6 +1,6 @@
 {
   "name": "wicked-saml",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "node.js SAML SDK for wicked.haufe.io",
   "keywords": [
     "api",

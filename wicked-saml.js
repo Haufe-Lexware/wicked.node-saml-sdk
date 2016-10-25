@@ -118,8 +118,7 @@ function assert(req, requestId, callback) {
         debug('samlResponse:');
         debug(JSON.stringify(samlResponse, null, 2));
         const userInfo = {
-            email: findEmail(samlResponse),
-            custom_id: findSomeId(samlResponse)
+            authenticated_userid: findSomeId(samlResponse)
         };
         callback(null, userInfo, samlResponse);
     });
