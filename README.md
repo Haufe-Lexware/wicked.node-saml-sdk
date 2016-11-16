@@ -193,8 +193,7 @@ The `userInfo` looks as follows:
 
 ```javascript
 userInfo = {
-    email: "extracted@email.com",
-    custom_id: "some-id-we-found"
+    authenticated_userid: "some-id-we-found"
 }
 ```
 
@@ -210,3 +209,6 @@ Lists all attribute names of the `user` tag of the given SAML response (`samlRes
 
 Retrieve the value of an attribute in the `samlResponse`. The `wantedAttribute` parameter is not case-sensitive. If the attribute cannot be found, `null` is returned. 
 
+### `wickedSaml.getConfig()`
+
+Returns the configuration object the SAML SDK retrieved from the wicked API (e.g., the `auth-saml.json` settings from the `auth-servers` configuration of your API portal).

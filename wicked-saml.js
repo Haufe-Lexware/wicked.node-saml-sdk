@@ -41,6 +41,10 @@ exports.getAttributeValue = function (samlResponse, wantedAttribute) {
     return getAttributeValue(samlResponse, wantedAttribute);
 };
 
+exports.getConfig = function () {
+    return getConfig();
+}
+
 // ======= IMPLEMENTATION =======
 
 function initialize(wicked, serverId, callback) {
@@ -62,6 +66,8 @@ function initialize(wicked, serverId, callback) {
 
         samlStorage.config.spOptions = serverInfo.saml.spOptions;
         samlStorage.config.idpOptions = serverInfo.saml.idpOptions;
+        if (serverInfo.saml.profile)
+            samlStorage.config.profile = serverInfo.saml.profile;
         samlStorage.config.initialized = true;
 
         debug('Read auth-server configuration.');
@@ -73,6 +79,11 @@ function initialize(wicked, serverId, callback) {
 
         callback(null);
     });
+}
+
+function getConfig() {
+    debug('getConfig()');
+    return samlStorage.config;
 }
 
 function metadata(req, res, next) {
