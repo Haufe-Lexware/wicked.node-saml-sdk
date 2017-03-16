@@ -43,7 +43,7 @@ exports.getAttributeValue = function (samlResponse, wantedAttribute) {
 
 exports.getConfig = function () {
     return getConfig();
-}
+};
 
 // ======= IMPLEMENTATION =======
 
@@ -123,8 +123,10 @@ function assert(req, requestId, callback) {
             return callback(new Error('The SAML response does not have a response_header property'));
         if (!samlResponse.response_header.in_response_to)
             return callback(new Error('The SAML response\'s response_header does not have an in_response_to property.'));
-        if (samlResponse.response_header.in_response_to != requestId)
+        if (samlResponse.response_header.in_response_to != requestId) {
+            debug('wrong request ID in SAML response, in_response_to: ' + samlResponse.response_header.in_response_to + ', requestId: ' + requestId);
             return callback(new Error('The SAML assertion does not correspond to expected request ID. Please try again.'));
+        }
 
         debug('samlResponse:');
         debug(JSON.stringify(samlResponse, null, 2));
