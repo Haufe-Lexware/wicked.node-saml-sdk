@@ -33,8 +33,8 @@ exports.assert = function (req, requestId, callback) {
     return assert(req, requestId, callback);
 };
 
-exports.redirect_assert = function (req, requestId, callback) {
-    return redirect_assert(req, requestId, callback);
+exports.redirectAssert = function (req, callback) {
+    return redirectAssert(req, callback);
 };
 
 exports.getAttributeNames = function (samlResponse) {
@@ -141,7 +141,7 @@ function assert(req, requestId, callback) {
     });
 }
 
-function redirect_assert(req, callback) {
+function redirectAssert(req, callback) {
     debug('redirect_assert');
     if (!req.query || !req.query.SAMLRequest )
         return callback(new Error('Request does not contain a SAMLRequest query parameter. Cannot parse.'));
