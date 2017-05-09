@@ -33,6 +33,10 @@ exports.assert = function (req, requestId, callback) {
     return assert(req, requestId, callback);
 };
 
+exports.redirect_assert = function (req, requestId, callback) {
+    return redirect_assert(req, requestId, callback);
+};
+
 exports.getAttributeNames = function (samlResponse) {
     return getAttributeNames(samlResponse);
 };
@@ -134,6 +138,30 @@ function assert(req, requestId, callback) {
             authenticated_userid: findSomeId(samlResponse)
         };
         callback(null, userInfo, samlResponse);
+    });
+}
+
+function redirect_assert(req, callback) {
+    debug('redirect_assert');
+    if (!req.query || !req.query.SAMLRequest )
+        return callback(new Error('Request does not contain a SAMLRequest query parameter. Cannot parse.'));
+    const options = { request_body: req.query };
+    samlStorage.serviceProvider.redirect_assert(samlStorage.identityProvider, options, function (err, samlRequest) {
+        if (err) {
+            debug('redirect_assert failed.');
+            debug(err);
+            return callback(err);
+        }
+
+        if (!samlRequest.response_header)
+            return callback(new Error('The SAML Request does not have a response_header property'));
+        if (!samlRequest.response_header.id)
+            return callback(new Error('The SAML Request\'s response_header does not have an id property.'));
+
+        debug('samlResponse:');
+        debug(JSON.stringify(samlRequest, null, 2));
+
+        callback(null, samlRequest);
     });
 }
 
