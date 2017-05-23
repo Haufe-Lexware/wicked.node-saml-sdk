@@ -212,3 +212,7 @@ Retrieve the value of an attribute in the `samlResponse`. The `wantedAttribute` 
 ### `wickedSaml.getConfig()`
 
 Returns the configuration object the SAML SDK retrieved from the wicked API (e.g., the `auth-saml.json` settings from the `auth-servers` configuration of your API portal).
+
+### `wickedSaml.getLogoutResponseUrl(inResponseTo, relayState, callback)`
+
+To be written.

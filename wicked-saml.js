@@ -29,6 +29,10 @@ exports.login = function (callback) {
     return login(callback);
 };
 
+exports.getLogoutResponseUrl = function (inResponseTo, relayState, callback) {
+    getLogoutResponseUrl(inResponseTo, relayState, callback);
+};
+
 exports.assert = function (req, requestId, callback) {
     return assert(req, requestId, callback);
 };
@@ -108,6 +112,21 @@ function login(callback) {
             requestId: requestId
         });
     });
+}
+
+function getLogoutResponseUrl(inResponseTo, relayState, callback) {
+    debug('getLogoutResponseUrl');
+    samlStorage.serviceProvider.create_logout_response_url(
+        samlStorage.identityProvider, 
+        { in_response_to: inResponseTo, relay_state: relayState },
+        function (err, logoutResponseUrl) {
+            if (err) {
+                console.error('create_logout_response_url failed.');
+                console.error(err);
+                return callback(err);
+            }
+            return callback(null, logoutResponseUrl);
+        });
 }
 
 function assert(req, requestId, callback) {
